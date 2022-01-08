@@ -11,7 +11,9 @@ export const Page = ({ title, children }: PageProps) => {
   return (
     <div>
       <Container>
-        <Title as="h1">{title}</Title>
+        <Title as="h1" variant="h4">
+          {title}
+        </Title>
         {children}
       </Container>
     </div>
