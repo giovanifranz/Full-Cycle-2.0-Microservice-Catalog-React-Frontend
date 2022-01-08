@@ -1,12 +1,13 @@
+import React, { ReactNode } from 'react'
 import { Container } from '@mui/material'
 import { Title } from './styles'
-import React from 'react'
 
 type PageProps = {
   title: string
+  children: ReactNode
 }
 
-export const Page: React.FC<PageProps> = ({ title, children }) => {
+export const Page = ({ title, children }: PageProps) => {
   return (
     <div>
       <Container>

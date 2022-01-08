@@ -4,7 +4,7 @@ import { AppBar, Button } from '@mui/material'
 import { Toolbar, Title, Logo } from './styles'
 import { Menu } from './Menu'
 
-export const Navbar: React.FC = () => {
+export const Navbar = () => {
   return (
     <AppBar>
       <Toolbar>
