@@ -18,7 +18,19 @@ export const routes: MyRouteProps[] = [
   {
     name: 'category.list',
     label: 'Listar Categorias',
-    path: '/categorias',
+    path: '/categories',
+    element: <List />
+  },
+  {
+    name: 'category.create',
+    label: 'Criar Categoria',
+    path: '/categories/create',
+    element: <List />
+  },
+  {
+    name: 'category.edit',
+    label: 'Editar Categoria',
+    path: '/categories/:id/edit',
     element: <List />
   }
 ]
