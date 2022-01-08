@@ -1,26 +1,17 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Box,
   Link,
-  ListItem,
-  ListItemText,
   Typography,
   Breadcrumbs as MuiBreadcrumbs
 } from '@mui/material'
-import type { LinkProps, ListItemProps } from '@mui/material'
-import { ExpandLess, ExpandMore } from '@mui/icons-material'
+import type { LinkProps } from '@mui/material'
 import {
   Link as RouterLink,
   Route,
   Routes,
-  MemoryRouter,
   useLocation
 } from 'react-router-dom'
-
-interface BreadcrumbsProps extends ListItemProps {
-  to: string
-  open?: boolean
-}
 
 const breadcrumbNameMap: { [key: string]: string } = {
   '/inbox': 'Inbox',
@@ -30,32 +21,13 @@ const breadcrumbNameMap: { [key: string]: string } = {
   '/drafts': 'Drafts'
 }
 
-function ListItemLink(props: BreadcrumbsProps) {
-  const { to, open, ...other } = props
-  const primary = breadcrumbNameMap[to]
-
-  let icon = null
-  if (open != null) {
-    icon = open ? <ExpandLess /> : <ExpandMore />
-  }
-
-  return (
-    <li>
-      <ListItem button component={RouterLink as any} to={to} {...other}>
-        <ListItemText primary={primary} />
-        {icon}
-      </ListItem>
-    </li>
-  )
-}
-
 interface LinkRouterProps extends LinkProps {
   to: string
   replace?: boolean
 }
 
 const LinkRouter = (props: LinkRouterProps) => (
-  <Link {...props} component={RouterLink as any} />
+  <Link {...props} component={RouterLink} />
 )
 
 const Page = () => {
