@@ -1,6 +1,6 @@
 import React from 'react'
 import { RouteProps } from 'react-router'
-import List from '../Pages/category/List'
+import PageList from '../Pages/category/PageList'
 import Dashboard from '../Pages/Dashboard'
 
 export interface MyRouteProps extends RouteProps {
@@ -19,19 +19,13 @@ export const routes: MyRouteProps[] = [
     name: 'category.list',
     label: 'Listar Categorias',
     path: '/categories',
-    element: <List />
+    element: <PageList />
   },
   {
     name: 'category.create',
     label: 'Criar Categoria',
     path: '/categories/create',
-    element: <List />
-  },
-  {
-    name: 'category.edit',
-    label: 'Editar Categoria',
-    path: '/categories/:id/edit',
-    element: <List />
+    element: <PageList />
   }
 ]
 
