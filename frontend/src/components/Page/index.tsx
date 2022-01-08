@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react'
-import { Container } from '@mui/material'
+import { Container, Box } from '@mui/material'
 import { Title } from './styles'
 
 type PageProps = {
@@ -14,7 +14,7 @@ export const Page = ({ title, children }: PageProps) => {
         <Title as="h1" variant="h4">
           {title}
         </Title>
-        {children}
+        <Box paddingTop={1}>{children}</Box>
       </Container>
     </div>
   )

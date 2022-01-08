@@ -4,7 +4,7 @@ import { Page } from '../../components'
 const List = () => {
   return (
     <Page title="Listagem de Categoria">
-      <h1>List</h1>
+      <h1>Hello World</h1>
     </Page>
   )
 }
