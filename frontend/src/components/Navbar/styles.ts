@@ -1,7 +1,7 @@
-import { Toolbar as ToolbarMaterial, Typography } from '@mui/material'
+import { Toolbar as MuiToolbar, Typography } from '@mui/material'
 import { styled } from '@mui/system'
 
-export const Toolbar = styled(ToolbarMaterial)`
+export const Toolbar = styled(MuiToolbar)`
   background-color: #000;
 `
 
