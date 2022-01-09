@@ -5,7 +5,7 @@ RUN apk add --no-cache git \
             openssl \
             bash \
             mysql-client \
-            nodejs-current \
+            nodejs \
             npm \
             freetype-dev \
             libjpeg-turbo-dev \
