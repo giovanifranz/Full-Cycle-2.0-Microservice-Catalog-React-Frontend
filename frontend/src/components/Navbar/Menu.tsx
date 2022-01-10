@@ -4,7 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import routes, { MyRouteProps } from '../../routes'
 import { Link } from 'react-router-dom'
 
-const listRoutes = ['dashboard', 'category.list']
+const listRoutes = ['dashboard', 'category.list', 'member.list', 'genrer.list']
 const menuRoutes = routes.filter((route) => listRoutes.includes(route.name))
 
 export const Menu = () => {
