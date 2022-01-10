@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables'
 import { httpVideo } from '../../utils/http'
+import { Chip } from '@mui/material'
+import { parseISO, format } from 'date-fns'
 
 const columnsDefinition: MUIDataTableColumn[] = [
   {
@@ -9,11 +11,25 @@ const columnsDefinition: MUIDataTableColumn[] = [
   },
   {
     name: 'is_active',
-    label: 'Ativo?'
+    label: 'Ativo?',
+    options: {
+      customBodyRender: (value) => {
+        return value ? (
+          <Chip label="Sim" color="primary" />
+        ) : (
+          <Chip label="Não" color="secondary" />
+        )
+      }
+    }
   },
   {
     name: 'created_at',
-    label: 'Criado em'
+    label: 'Criado em',
+    options: {
+      customBodyRender: (value) => {
+        return format(parseISO(value), 'dd/MM/yyyy')
+      }
+    }
   }
 ]
 
