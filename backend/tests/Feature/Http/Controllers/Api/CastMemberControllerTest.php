@@ -5,7 +5,7 @@ namespace Tests\Feature\Http\Controllers\Api;
 
 
 use App\Http\Resources\CastMemberResource;
-use App\Models\CastMember;
+use App\Models\CastMembers;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;
 use Tests\Traits\TestResources;
@@ -31,7 +31,7 @@ class CastMemberControllerTest extends TestCase
     {
         parent::setUp();
         $this->castMember = factory(CastMember::class)->create([
-            'type' => CastMember::TYPE_DIRECTOR
+            'type' => CastMembers::TYPE_DIRECTOR
         ]);
     }
 
@@ -74,11 +74,11 @@ class CastMemberControllerTest extends TestCase
         $data = [
             [
                 'name' => 'test',
-                'type' => CastMember::TYPE_DIRECTOR
+                'type' => CastMembers::TYPE_DIRECTOR
             ],
             [
                 'name' => 'test',
-                'type' => CastMember::TYPE_ACTOR
+                'type' => CastMembers::TYPE_ACTOR
             ]
         ];
         foreach ($data as $key => $value) {
@@ -87,7 +87,7 @@ class CastMemberControllerTest extends TestCase
                 'data' => $this->fieldsSerialized
             ]);
             $this->assertResource($response, new CastMemberResource(
-                CastMember::find($response->json('data.id'))
+                CastMembers::find($response->json('data.id'))
             ));
         }
     }
@@ -96,14 +96,14 @@ class CastMemberControllerTest extends TestCase
     {
         $data = [
             'name' => 'test',
-            'type' => CastMember::TYPE_ACTOR
+            'type' => CastMembers::TYPE_ACTOR
         ];
         $response = $this->assertUpdate($data, $data + ['deleted_at' => null]);
         $response->assertJsonStructure([
             'data' => $this->fieldsSerialized
         ]);
         $this->assertResource($response, new CastMemberResource(
-            CastMember::find($response->json('data.id'))
+            CastMembers::find($response->json('data.id'))
         ));
     }
 
@@ -124,8 +124,8 @@ class CastMemberControllerTest extends TestCase
     {
         $response = $this->json('DELETE', route('cast_members.destroy', ['cast_member' => $this->castMember->id]));
         $response->assertStatus(204);
-        $this->assertNull(CastMember::find($this->castMember->id));
-        $this->assertNotNull(CastMember::withTrashed()->find($this->castMember->id));
+        $this->assertNull(CastMembers::find($this->castMember->id));
+        $this->assertNotNull(CastMembers::withTrashed()->find($this->castMember->id));
     }
 
     protected function model()

@@ -207,7 +207,7 @@ class GenreControllerTest extends TestCase
 
     public function testRollbackStore()
     {
-        $controller = \Mockery::mock(GenreController::class)
+        $controller = Mockery::mock(GenreController::class)
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 
@@ -243,7 +243,7 @@ class GenreControllerTest extends TestCase
 
     public function testRollbackUpdate()
     {
-        $controller = \Mockery::mock(GenreController::class)
+        $controller = Mockery::mock(GenreController::class)
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 

@@ -1,10 +1,12 @@
 <?php
+
 declare(strict_types=1);
 
 namespace App\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 
 class GenresHasCategoriesRule implements Rule
 {
@@ -62,7 +64,7 @@ class GenresHasCategoriesRule implements Rule
 
     protected function getRows($genreId): Collection
     {
-        return \DB
+        return DB
             ::table('category_genre')
             ->where('genre_id', $genreId)
             ->whereIn('category_id', $this->categoriesId)

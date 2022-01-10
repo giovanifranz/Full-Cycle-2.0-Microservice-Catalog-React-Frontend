@@ -9,12 +9,13 @@ use EloquentFilter\Filterable;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\ResourceCollection;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 
 abstract class BasicCrudController extends Controller
 {
 
-    protected $defaultPerPage = 15;
+    protected $defaultPerPage = 1000;
 
     protected abstract function model();
 
@@ -33,7 +34,7 @@ abstract class BasicCrudController extends Controller
 
         $query = $this->queryBuilder();
 
-        if($hasFilter){
+        if ($hasFilter) {
             $query = $query->filter($request->all());
         }
 
@@ -62,7 +63,6 @@ abstract class BasicCrudController extends Controller
         $model = $this->model();
         $keyName = (new $model)->getRouteKeyName();
         return $this->queryBuilder()->where($keyName, $id)->firstOrFail();
-
     }
 
     public function show($id)
@@ -106,18 +106,11 @@ abstract class BasicCrudController extends Controller
         return response()->noContent();
     }
 
-    public function destroyCollection(Request $request)
-    {
-        $data = $this->validateIds($request);
-        $this->model()::whereIn('id', $data['ids'])->delete();
-        return response()->noContent();
-    }
-
     protected function validateIds(Request $request)
     {
         $model = $this->model();
         $ids = explode(',', $request->get('ids'));
-        $validator = \Validator::make(
+        $validator = Validator::make(
             [
                 'ids' => $ids
             ],
@@ -128,8 +121,8 @@ abstract class BasicCrudController extends Controller
         return $validator->validate();
     }
 
-    protected function queryBuilder(): Builder{
+    protected function queryBuilder(): Builder
+    {
         return $this->model()::query();
     }
 }
-

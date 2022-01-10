@@ -32,16 +32,7 @@ class BasicCrudControllerTest extends TestCase
     {
         /** @var CategoryStub $category */
         $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
-        $request = \Mockery::mock(Request::class);
-        $request
-            ->shouldReceive('get')
-            ->once()
-            ->andReturn([]);
-        $request
-            ->shouldReceive('has')
-            ->once()
-            ->andReturn(false);
-        $resource = $this->controller->index($request);
+        $resource = $this->controller->index();
         $serialized = $resource->response()->getData(true);
         $this->assertEquals(
             [$category->toArray()],
@@ -73,7 +64,7 @@ class BasicCrudControllerTest extends TestCase
 
         $resource = $this->controller->store($request);
         $serialized = $resource->response()->getData(true);
-        $this->assertEquals( CategoryStub::first()->toArray(), $serialized['data']);
+        $this->assertEquals(CategoryStub::first()->toArray(), $serialized['data']);
     }
 
     public function testIfFindOrFailFetchModel()
@@ -116,14 +107,10 @@ class BasicCrudControllerTest extends TestCase
         $request->shouldReceive('all')
             ->once()
             ->andReturn(['name' => 'test_changed', 'description' => 'test_description_changed']);
-        $request
-            ->shouldReceive('isMethod')
-            ->once()
-            ->andReturn('put');
         $resource = $this->controller->update($request, $category->id);
         $serialized = $resource->response()->getData(true);
         $category->refresh();
-        $this->assertEquals( $category->toArray(), $serialized['data']);
+        $this->assertEquals($category->toArray(), $serialized['data']);
     }
 
     public function testDestroy()
@@ -135,5 +122,4 @@ class BasicCrudControllerTest extends TestCase
             ->assertStatus(204);
         $this->assertCount(0, CategoryStub::all());
     }
-
 }

@@ -7,6 +7,7 @@ namespace App\Models\Traits;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Storage;
 
 trait UploadFiles
 {
@@ -66,7 +67,7 @@ trait UploadFiles
     public function deleteFile($file)
     {
         $filename = $file instanceof UploadedFile ? $file->hashName() : $file;
-        \Storage::delete("{$this->uploadDir()}/{$filename}");
+        Storage::delete("{$this->uploadDir()}/{$filename}");
     }
 
     public static function extractFiles(array &$attributes = [])
@@ -83,6 +84,6 @@ trait UploadFiles
 
     protected function getFileUrl($filename)
     {
-        return \Storage::url($this->relativeFilePath($filename));
+        return Storage::url($this->relativeFilePath($filename));
     }
 }

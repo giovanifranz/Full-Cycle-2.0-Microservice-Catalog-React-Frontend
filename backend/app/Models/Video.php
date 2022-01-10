@@ -2,15 +2,15 @@
 
 namespace App\Models;
 
-use App\Models\Traits\SerializeDateToIso8601;
 use App\Models\Traits\UploadFiles;
 use App\Models\Traits\Uuid;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\DB;
 
 class Video extends Model
 {
-    use SoftDeletes, Uuid, UploadFiles, SerializeDateToIso8601;
+    use SoftDeletes, Uuid, UploadFiles;
 
     const RATING_LIST = ['L', '10', '12', '14', '16', '18'];
 
@@ -42,7 +42,6 @@ class Video extends Model
     ];
 
     public $incrementing = false;
-    protected $keyType = 'string';
     protected $hidden = ['thumb_file', 'banner_file', 'trailer_file', 'video_file'];
     public static $fileFields = ['thumb_file', 'banner_file', 'trailer_file', 'video_file'];
 
@@ -50,18 +49,18 @@ class Video extends Model
     {
         $files = self::extractFiles($attributes);
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
             /** @var Video $obj */
             $obj = static::query()->create($attributes);
             static::handleRelations($obj, $attributes);
             $obj->uploadFiles($files);
-            \DB::commit();
+            DB::commit();
             return $obj;
         } catch (\Exception $e) {
             if (isset($obj)) {
                 $obj->deleteFiles($files);
             }
-            \DB::rollBack();
+            DB::rollBack();
             throw $e;
         }
     }
@@ -70,20 +69,20 @@ class Video extends Model
     {
         $files = self::extractFiles($attributes);
         try {
-            \DB::beginTransaction();
+            DB::beginTransaction();
             $saved = parent::update($attributes, $options);
             static::handleRelations($this, $attributes);
             if ($saved) {
                 $this->uploadFiles($files);
             }
-            \DB::commit();
+            DB::commit();
             if ($saved && count($files)) {
                 $this->deleteOldFiles();
             }
             return $saved;
         } catch (\Exception $e) {
             $this->deleteFiles($files);
-            \DB::rollBack();
+            DB::rollBack();
             throw $e;
         }
     }
@@ -96,9 +95,6 @@ class Video extends Model
         if (isset($attributes['genres_id'])) {
             $video->genres()->sync($attributes['genres_id']);
         }
-        if (isset($attributes['cast_members_id'])) {
-            $video->castMembers()->sync($attributes['cast_members_id']);
-        }
     }
 
 
@@ -110,11 +106,6 @@ class Video extends Model
     public function genres()
     {
         return $this->belongsToMany(Genre::class)->withTrashed();
-    }
-
-    public function castMembers()
-    {
-        return $this->belongsToMany(CastMember::class)->withTrashed();
     }
 
     protected function uploadDir()

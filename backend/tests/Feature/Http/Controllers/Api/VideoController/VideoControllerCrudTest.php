@@ -60,16 +60,6 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
                 'updated_at',
                 'deleted_at',
             ]
-        ],
-        'cast_members' => [
-            '*' => [
-                'id',
-                'name',
-                'type',
-                'created_at',
-                'updated_at',
-                'deleted_at',
-            ]
         ]
     ];
 
@@ -200,7 +190,7 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
 
     public function testSaveWithoutFiles()
     {
-        $testData = Arr::except($this->sendData, ['categories_id', 'genres_id', 'cast_members_id']);
+        $testData = Arr::except($this->sendData, ['categories_id', 'genres_id']);
         $data = [
             [
                 'send_data' => $this->sendData,
@@ -232,7 +222,7 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
                 $response,
                 new VideoResource(Video::find($response->json('data.id')))
             );
-
+            $this->assertIfFilesUrlExists($this->video, $response);
 
             $response = $this->assertUpdate(
                 $value['send_data'],
@@ -241,14 +231,11 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
             $response->assertJsonStructure([
                 'data' => $this->fieldsSerialized
             ]);
-            $video = Video
-                        ::with(['categories', 'genres', 'castMembers'])
-                        ->find($response->json('data.id'));
-            
             $this->assertResource(
                 $response,
-                new VideoResource($video)
+                new VideoResource(Video::find($response->json('data.id')))
             );
+            $this->assertIfFilesUrlExists($this->video, $response);
         }
     }
 

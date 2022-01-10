@@ -6,6 +6,7 @@ use App\Http\Resources\GenreResource;
 use App\Models\Genre;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class GenreController extends BasicCrudController
 {
@@ -19,7 +20,7 @@ class GenreController extends BasicCrudController
     {
         $validatedData = $this->validate($request, $this->rulesStore());
         $self = $this;
-        $obj = \DB::transaction(function () use ($self, $request, $validatedData) {
+        $obj = DB::transaction(function () use ($self, $request, $validatedData) {
             $obj = $this->model()::create($validatedData);
             $self->handleRelations($obj, $request);
             return $obj;
@@ -35,7 +36,7 @@ class GenreController extends BasicCrudController
         $obj = $this->findOrFail($id);
         $validatedData = $this->validate($request, $this->rulesUpdate());
         $self = $this;
-        \DB::transaction(function () use ($self, $request, $obj, $validatedData) {
+        DB::transaction(function () use ($self, $request, $obj, $validatedData) {
             $obj->update($validatedData);
             $self->handleRelations($obj, $request);
         });

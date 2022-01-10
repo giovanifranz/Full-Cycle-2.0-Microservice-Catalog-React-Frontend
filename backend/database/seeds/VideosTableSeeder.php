@@ -1,20 +1,20 @@
 <?php
 
-use App\Models\CastMember;
 use App\Models\Genre;
 use App\Models\Video;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Http\UploadedFile;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
+
 class VideosTableSeeder extends Seeder
 {
     private $allGenres;
-    private $allCastMembers;
     private $relations = [
         'genres_id' => [],
-        'categories_id' => [],
-        'cast_members_id' => []
+        'categories_id' => []
     ];
 
     /**
@@ -24,18 +24,17 @@ class VideosTableSeeder extends Seeder
      */
     public function run()
     {
-        $dir = \Storage::getDriver()->getAdapter()->getPathPrefix();
-        \File::deleteDirectory($dir, true);
+        $dir = Storage::getDriver()->getAdapter()->getPathPrefix();
+        File::deleteDirectory($dir, true);
 
         $self = $this;
         $this->allGenres = Genre::all();
-        $this->allCastMembers = CastMember::all();
         Model::reguard(); //mass assignment
-        factory(Video::class, 100)
+        factory(\App\Models\Video::class, 100)
             ->make()
             ->each(function (Video $video) use ($self) {
                 $self->fetchRelations();
-                Video::create(
+                \App\Models\Video::create(
                     array_merge(
                         $video->toArray(), //thumb_file, banner_file
                         [
@@ -62,7 +61,6 @@ class VideosTableSeeder extends Seeder
         $genresId = $subGenres->pluck('id')->toArray();
         $this->relations['categories_id'] = $categoriesId;
         $this->relations['genres_id'] = $genresId;
-        $this->relations['cast_members_id'] = $this->allCastMembers->random(3)->pluck('id')->toArray();
     }
 
     public function getImageFile()
