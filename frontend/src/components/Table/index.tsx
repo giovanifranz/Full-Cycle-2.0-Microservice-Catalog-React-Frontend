@@ -98,7 +98,7 @@ interface TableProps {
 const Table = ({ type }: TableProps) => {
   const [data, setData] = useState([])
 
-  const teste = columnsMap[type]
+  const columnsDefinition = columnsMap[type]
 
   useEffect(() => {
     httpVideo.get(`/${type}`).then((response) => {
@@ -106,7 +106,7 @@ const Table = ({ type }: TableProps) => {
     })
   })
 
-  return <MUIDataTable title="" columns={teste} data={data} />
+  return <MUIDataTable title="" columns={columnsDefinition} data={data} />
 }
 
 export default Table
