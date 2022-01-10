@@ -95,7 +95,7 @@ interface TableProps {
   type: 'categories' | 'genres' | 'cast_members'
 }
 
-const Table = ({ type }: TableProps) => {
+export const Table = ({ type }: TableProps) => {
   const [data, setData] = useState([])
 
   const columnsDefinition = columnsMap[type]
@@ -108,5 +108,3 @@ const Table = ({ type }: TableProps) => {
 
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />
 }
-
-export default Table

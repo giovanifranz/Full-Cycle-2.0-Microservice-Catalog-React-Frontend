@@ -1,9 +1,8 @@
 import React from 'react'
 import { Box, Fab } from '@mui/material'
-import { Page } from '../components'
+import { Page, Table } from '../components'
 import { Link } from 'react-router-dom'
 import AddIcon from '@mui/icons-material/Add'
-import Table from '../components/Table'
 
 interface PageListProps {
   pageTitle: string
