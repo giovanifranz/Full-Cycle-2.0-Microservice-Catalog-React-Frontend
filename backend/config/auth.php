@@ -14,9 +14,10 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'api',
+        'guard' => 'web',
         'passwords' => 'users',
     ],
+
 
     /*
     |--------------------------------------------------------------------------
@@ -37,16 +38,16 @@ return [
 
     'guards' => [
         'web' => [
-            'driver' => 'keycloak-web',
-            'provider' => 'keycloak-users',
+            'driver' => 'session',
+            'provider' => 'users',
         ],
 
         'api' => [
-            'driver' => 'keycloak',
-            'provider' => null,
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
         ],
     ],
-
     /*
     |--------------------------------------------------------------------------
     | User Providers
@@ -68,11 +69,6 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => App\User::class,
-        ],
-
-        'keycloak-users' => [
-            'driver' => 'keycloak-users',
-            'model' => Vizir\KeycloakWebGuard\Models\KeycloakUser::class,
         ],
 
         // 'users' => [
