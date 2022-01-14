@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables'
-import { httpVideo } from '../../utils/http'
 import {
   BadgeYes,
   BadgeNo,
   nameColumn,
   createdAtColumn
 } from '../../components/Table'
+import { useFetchTable } from '../../hooks/useFetchTable'
 
 const columnsDefinition: MUIDataTableColumn[] = [
   nameColumn,
@@ -23,12 +23,8 @@ const columnsDefinition: MUIDataTableColumn[] = [
 ]
 
 const Table = () => {
-  const [data, setData] = useState([])
-  useEffect(() => {
-    httpVideo.get('/genres').then((response) => {
-      setData(response.data.data)
-    })
-  })
+  const data = useFetchTable('genres')
+
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />
 }
 
