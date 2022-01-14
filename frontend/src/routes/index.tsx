@@ -1,7 +1,9 @@
 import React from 'react'
 import { RouteProps } from 'react-router'
-import PageList from '../Pages/PageList'
 import Dashboard from '../Pages/Dashboard'
+import CastMember from '../Pages/Cast-Member/PageList'
+import Genre from '../Pages/Genre/PageList'
+import Category from '../Pages/Category/PageList'
 
 export interface MyRouteProps extends RouteProps {
   name: string
@@ -19,40 +21,19 @@ export const routes: MyRouteProps[] = [
     name: 'category.list',
     label: 'Listar Categorias',
     path: '/categories',
-    element: (
-      <PageList
-        pageTitle="Listagem de Categoria"
-        title="Adicionar Categoria"
-        path="/categories/create"
-        table="categories"
-      />
-    )
+    element: <Category />
   },
   {
     name: 'member.list',
     label: 'Listar Membros',
     path: '/members',
-    element: (
-      <PageList
-        pageTitle="Listagem de Membros"
-        title="Adicionar Membro"
-        path="/members/create"
-        table="cast_members"
-      />
-    )
+    element: <CastMember />
   },
   {
     name: 'genrer.list',
     label: 'Listar Gêneros',
     path: '/genrers',
-    element: (
-      <PageList
-        pageTitle="Listagem de Gêneros"
-        title="Adicionar Gênero"
-        path="/genrers/create"
-        table="genres"
-      />
-    )
+    element: <Genre />
   }
 ]
 
