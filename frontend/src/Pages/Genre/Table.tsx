@@ -24,7 +24,6 @@ const columnsDefinition: MUIDataTableColumn[] = [
 
 const Table = () => {
   const data = useFetchTable('genres')
-
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />
 }
 
