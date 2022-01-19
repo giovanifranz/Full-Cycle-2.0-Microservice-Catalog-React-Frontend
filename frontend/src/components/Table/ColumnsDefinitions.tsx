@@ -1,4 +1,3 @@
-import React from 'react'
 import { MUIDataTableColumn } from 'mui-datatables'
 import { parseISO, format } from 'date-fns'
 

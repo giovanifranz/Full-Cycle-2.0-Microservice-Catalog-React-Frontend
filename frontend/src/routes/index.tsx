@@ -1,9 +1,8 @@
-import React from 'react'
 import { RouteProps } from 'react-router'
-import Dashboard from '../Pages/Dashboard'
-import CastMember from '../Pages/Cast-Member/PageList'
-import Genre from '../Pages/Genre/PageList'
-import Category from '../Pages/Category/PageList'
+import Dashboard from '@/Pages/Dashboard'
+import CastMember from '@/Pages/Cast-Member/PageList'
+import Genre from '@/Pages/Genre/PageList'
+import Category from '@/Pages/Category/PageList'
 
 export interface MyRouteProps extends RouteProps {
   name: string

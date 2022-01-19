@@ -1,4 +1,3 @@
-import React from 'react'
 import { Chip } from '@mui/material'
 
 export const BadgeYes = () => <Chip label="Sim" color="primary" />

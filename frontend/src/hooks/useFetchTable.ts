@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { httpVideo } from '../utils/http'
+import { httpVideo } from '@/utils/http'
 
 type API = 'genres' | 'categories' | 'cast_members'
 

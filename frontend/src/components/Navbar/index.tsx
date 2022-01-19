@@ -1,5 +1,4 @@
-import React from 'react'
-import logo from '../../static/img/logo.png'
+import logo from '@/static/img/logo.png'
 import { AppBar, Button } from '@mui/material'
 import { Toolbar, Title, Logo } from './styles'
 import { Menu } from './Menu'

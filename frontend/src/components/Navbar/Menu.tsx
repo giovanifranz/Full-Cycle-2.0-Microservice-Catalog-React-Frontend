@@ -1,7 +1,7 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { IconButton, Menu as MuiMenu, MenuItem } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu'
-import routes, { MyRouteProps } from '../../routes'
+import routes, { MyRouteProps } from '@/routes'
 import { Link } from 'react-router-dom'
 
 const listRoutes = ['dashboard', 'category.list', 'member.list', 'genrer.list']

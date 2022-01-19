@@ -1,8 +1,7 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import { Box, Fab } from '@material-ui/core'
 import AddIcon from '@mui/icons-material/Add'
-import { Page } from '../../components/Page'
+import { Page } from '@/components/Page'
 import Table from './Table'
 
 const PageList = () => {

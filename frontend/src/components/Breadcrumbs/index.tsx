@@ -1,4 +1,3 @@
-import React from 'react'
 import { Container, Box } from '@mui/material'
 import { Route, Routes } from 'react-router-dom'
 import History from './History'

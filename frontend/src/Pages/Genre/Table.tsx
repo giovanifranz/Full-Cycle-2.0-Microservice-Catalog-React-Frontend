@@ -1,7 +1,6 @@
-import React from 'react'
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables'
-import { nameColumn, createdAtColumn } from '../../components/Table'
-import { useFetchTable } from '../../hooks/useFetchTable'
+import { nameColumn, createdAtColumn } from '@/components/Table'
+import { useFetchTable } from '@/hooks/useFetchTable'
 
 const columnsDefinition: MUIDataTableColumn[] = [
   nameColumn,
