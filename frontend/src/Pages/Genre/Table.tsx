@@ -1,11 +1,6 @@
 import React from 'react'
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables'
-import {
-  BadgeYes,
-  BadgeNo,
-  nameColumn,
-  createdAtColumn
-} from '../../components/Table'
+import { nameColumn, createdAtColumn } from '../../components/Table'
 import { useFetchTable } from '../../hooks/useFetchTable'
 
 const columnsDefinition: MUIDataTableColumn[] = [
@@ -15,7 +10,7 @@ const columnsDefinition: MUIDataTableColumn[] = [
     label: 'Categorias',
     options: {
       customBodyRender(value) {
-        return value ? <BadgeYes /> : <BadgeNo />
+        return value.map((value: { name: string }) => value.name).join(', ')
       }
     }
   },
