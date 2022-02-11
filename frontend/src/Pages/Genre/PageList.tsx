@@ -8,7 +8,7 @@ const PageList = () => {
   return (
     <Page title="Listagem de gêneros">
       <Box dir={'rtl'}>
-        <Fab title="Adicionar gênero" component={Link} to="/Genres/create">
+        <Fab title="Adicionar gênero" component={Link} to="/genres/create">
           <AddIcon />
         </Fab>
       </Box>

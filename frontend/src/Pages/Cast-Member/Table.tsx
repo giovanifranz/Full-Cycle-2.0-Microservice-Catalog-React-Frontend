@@ -1,11 +1,8 @@
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables'
 import { nameColumn, createdAtColumn } from '@/components/Table'
-import { useFetchTable } from '@/hooks/useFetchTable'
-
-const CastMemberTypeMap = {
-  1: 'Diretor',
-  2: 'Ator'
-}
+import { useEffect, useState } from 'react'
+import castMemberHttp from '@/utils/http/cast-member-http'
+import { CastMemberTypeMap, CastMember } from '@/utils/Models'
 
 export const columnsDefinition: MUIDataTableColumn[] = [
   {
@@ -33,7 +30,13 @@ export const columnsDefinition: MUIDataTableColumn[] = [
 ]
 
 const Table = () => {
-  const data = useFetchTable('cast_members')
+  const [data, setData] = useState<CastMember[]>([])
+
+  useEffect(() => {
+    castMemberHttp
+      .list<{ data: CastMember[] }>()
+      .then(({ data }) => setData(data.data))
+  })
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />
 }
 

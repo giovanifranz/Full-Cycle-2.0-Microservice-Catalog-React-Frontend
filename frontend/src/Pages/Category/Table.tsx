@@ -5,7 +5,9 @@ import {
   nameColumn,
   createdAtColumn
 } from '@/components/Table'
-import { useFetchTable } from '@/hooks/useFetchTable'
+import { useEffect, useState } from 'react'
+import categoryHttp from '@/utils/http/category-http'
+import { Category } from '@/utils/Models'
 
 const columnsDefinition: MUIDataTableColumn[] = [
   nameColumn,
@@ -22,7 +24,14 @@ const columnsDefinition: MUIDataTableColumn[] = [
 ]
 
 const Table = () => {
-  const data = useFetchTable('categories')
+  const [data, setData] = useState<Category[]>([])
+
+  useEffect(() => {
+    categoryHttp
+      .list<{ data: Category[] }>()
+      .then(({ data }) => setData(data.data))
+  })
+
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />
 }
 

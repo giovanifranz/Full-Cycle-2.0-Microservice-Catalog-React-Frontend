@@ -1,6 +1,8 @@
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables'
 import { nameColumn, createdAtColumn } from '@/components/Table'
-import { useFetchTable } from '@/hooks/useFetchTable'
+import { useEffect, useState } from 'react'
+import genreHtpp from '@/utils/http/genre-http'
+import { Genre } from '@/utils/Models'
 
 const columnsDefinition: MUIDataTableColumn[] = [
   nameColumn,
@@ -17,7 +19,11 @@ const columnsDefinition: MUIDataTableColumn[] = [
 ]
 
 const Table = () => {
-  const data = useFetchTable('genres')
+  const [data, setData] = useState<Genre[]>([])
+
+  useEffect(() => {
+    genreHtpp.list<{ data: Genre[] }>().then(({ data }) => setData(data.data))
+  })
   return <MUIDataTable title="" columns={columnsDefinition} data={data} />
 }
 
