@@ -7,8 +7,13 @@ import Table from './Table'
 const PageList = () => {
   return (
     <Page title="Listagem de gêneros">
-      <Box dir={'rtl'}>
-        <Fab title="Adicionar gênero" component={Link} to="/genres/create">
+      <Box dir={'rtl'} paddingBottom={2}>
+        <Fab
+          title="Adicionar gênero"
+          color="secondary"
+          component={Link}
+          to="/genres/create"
+        >
           <AddIcon />
         </Fab>
       </Box>

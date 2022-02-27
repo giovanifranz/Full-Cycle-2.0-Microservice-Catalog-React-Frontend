@@ -27,7 +27,7 @@ export const Form = () => {
   const buttonProps: ButtonProps = {
     variant: 'contained',
     className: classes.submit,
-    color: 'primary',
+    color: 'secondary',
     disabled: loading
   }
 
@@ -37,6 +37,7 @@ export const Form = () => {
       categories_id: []
     }
   })
+
   const [categories, setCategories] = useState<Category[]>([])
 
   useEffect(() => {
