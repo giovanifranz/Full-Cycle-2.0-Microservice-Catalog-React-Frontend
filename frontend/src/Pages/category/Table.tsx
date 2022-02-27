@@ -1,10 +1,5 @@
 import MUIDataTable, { MUIDataTableColumn } from 'mui-datatables'
-import {
-  BadgeYes,
-  BadgeNo,
-  nameColumn,
-  createdAtColumn
-} from '@/components/Table'
+import { nameColumn, createdAtColumn, BadgeYes, BadgeNo } from '@/components'
 import { useEffect, useState } from 'react'
 import categoryHttp from '@/utils/http/category-http'
 import { Category } from '@/utils/Models'
