@@ -53,6 +53,7 @@ export const Form = () => {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
+        margin="normal"
         label="Nome"
         fullWidth
         variant="outlined"
