@@ -1,11 +1,11 @@
 import { RouteProps } from 'react-router'
 import Dashboard from '@/Pages/Dashboard'
-import CastMember from '@/Pages/Cast-Member/PageList'
-import CastMemberForm from '@/Pages/Cast-Member/PageForm'
-import Genre from '@/Pages/Genre/PageList'
-import GenreForm from '@/Pages/Genre/PageForm'
-import Category from '@/Pages/Category/PageList'
-import CategoryForm from '@/Pages/Category/PageForm'
+import CastMember from '@/Pages/cast-member/PageList'
+import CastMemberForm from '@/Pages/cast-member/PageForm'
+import Genre from '@/Pages/genre/PageList'
+import GenreForm from '@/Pages/genre/PageForm'
+import Category from '@/Pages/category/PageList'
+import CategoryForm from '@/Pages/category/PageForm'
 
 export interface MyRouteProps extends RouteProps {
   name: string

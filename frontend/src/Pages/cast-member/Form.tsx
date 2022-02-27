@@ -3,13 +3,16 @@ import {
   Box,
   Button,
   ButtonProps,
-  Checkbox,
+  FormControlLabel,
   makeStyles,
+  Radio,
+  RadioGroup,
   TextField,
-  Theme
+  Theme,
+  FormLabel
 } from '@material-ui/core'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { useEffect, useState } from 'react'
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -25,17 +28,20 @@ export const Form = () => {
   const buttonProps: ButtonProps = {
     variant: 'contained',
     className: classes.submit,
-    color: 'secondary',
+    color: 'primary',
     disabled: loading
   }
 
-  const { register, handleSubmit, getValues } = useForm({
+  const { register, handleSubmit, getValues, setValue } = useForm({
     defaultValues: {
       name: '',
-      description: '',
-      is_active: true
+      type: 1
     }
   })
+
+  useEffect(() => {
+    register('type')
+  }, [register])
 
   function onSubmit(formData: any, event: any) {
     console.log(event)
@@ -52,17 +58,24 @@ export const Form = () => {
         variant="outlined"
         {...register('name')}
       />
-      <TextField
-        label="Descrição"
-        multiline
-        rows="4"
-        fullWidth
-        variant="outlined"
-        margin="normal"
-        {...register('description')}
-      />
-      <Checkbox {...register('is_active')} defaultChecked />
-      Ativo?
+      <FormLabel component="legend">Tipo</FormLabel>
+      <RadioGroup
+        name="type"
+        onChange={(e) => {
+          setValue('type', parseInt(e.target.value))
+        }}
+      >
+        <FormControlLabel
+          value="1"
+          control={<Radio color="primary" />}
+          label="Diretor"
+        />
+        <FormControlLabel
+          value="2"
+          control={<Radio color="primary" />}
+          label="Ator"
+        />
+      </RadioGroup>
       <Box dir="rtl">
         <Button {...buttonProps} onClick={() => onSubmit(getValues, null)}>
           Salvar
