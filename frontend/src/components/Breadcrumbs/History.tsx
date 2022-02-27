@@ -1,8 +1,8 @@
-import { Typography, Breadcrumbs } from '@mui/material'
+import { Typography, Breadcrumbs } from '@material-ui/core'
 import { useLocation } from 'react-router-dom'
 import routes from '@/routes'
 import RouteParser from 'route-parser'
-import { LinkRouter } from './LinkRouter'
+import LinkRouter from './LinkRouter'
 
 const breadcrumbNameMap: { [key: string]: string } = {}
 routes.forEach(
@@ -32,7 +32,7 @@ const History = () => {
         }
 
         return last ? (
-          <Typography color="text.primary" key={to}>
+          <Typography color="primary" key={to}>
             {breadcrumbNameMap[route]}
           </Typography>
         ) : (

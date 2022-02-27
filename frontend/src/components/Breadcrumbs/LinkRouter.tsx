@@ -1,25 +1,36 @@
-import { Link, LinkProps } from '@mui/material'
+import {
+  createStyles,
+  Link,
+  LinkProps,
+  makeStyles,
+  Theme
+} from '@material-ui/core'
 import { Link as RouterLink } from 'react-router-dom'
-import { styled } from '@mui/system'
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    linkRouter: {
+      color: theme.palette.secondary.main,
+      '&:focus, &:active': {
+        color: theme.palette.secondary.main
+      },
+      '&:hover': {
+        color: theme.palette.secondary.dark
+      }
+    }
+  })
+)
 
 interface LinkRouterProps extends LinkProps {
   to: string
   replace?: boolean
 }
 
-const LinkRouterComponent = (props: LinkRouterProps) => (
-  <Link {...props} component={RouterLink} />
-)
+const LinkRouter = (props: LinkRouterProps) => {
+  const classes = useStyles()
+  return (
+    <Link {...props} component={RouterLink} className={classes.linkRouter} />
+  )
+}
 
-export const LinkRouter = styled(LinkRouterComponent)`
-  color: #4db5ab;
-
-  &:focus,
-  &:active {
-    color: #4db5ab;
-  }
-
-  &:hover {
-    color: #055a52;
-  }
-`
+export default LinkRouter

@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Page } from '@/components'
 import { Form } from './Form'
 

@@ -1,6 +1,6 @@
 import { useState } from 'react'
-import { IconButton, Menu as MuiMenu, MenuItem } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu'
+import { IconButton, Menu as MuiMenu, MenuItem } from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu'
 import routes, { MyRouteProps } from '@/routes'
 import { Link } from 'react-router-dom'
 
@@ -48,7 +48,7 @@ export const Menu = () => {
               onClick={handleClose}
               to={route.path as string}
             >
-              {route.name}
+              {route.label}
             </MenuItem>
           )
         })}

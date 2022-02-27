@@ -8,7 +8,8 @@ import {
   Radio,
   RadioGroup,
   TextField,
-  Theme
+  Theme,
+  FormLabel
 } from '@material-ui/core'
 import { useForm } from 'react-hook-form'
 import { useEffect, useState } from 'react'
@@ -57,6 +58,7 @@ export const Form = () => {
         variant="outlined"
         {...register('name')}
       />
+      <FormLabel component="legend">Tipo</FormLabel>
       <RadioGroup
         name="type"
         onChange={(e) => {
@@ -66,7 +68,6 @@ export const Form = () => {
         <FormControlLabel value="1" control={<Radio />} label="Diretor" />
         <FormControlLabel value="2" control={<Radio />} label="Ator" />
       </RadioGroup>
-
       <Box dir="rtl">
         <Button {...buttonProps} onClick={() => onSubmit(getValues, null)}>
           Salvar

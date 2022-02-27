@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Box, Fab } from '@material-ui/core'
-import AddIcon from '@mui/icons-material/Add'
+import AddIcon from '@material-ui/icons/Add'
 import { Page } from '@/components'
 import Table from './Table'
 
