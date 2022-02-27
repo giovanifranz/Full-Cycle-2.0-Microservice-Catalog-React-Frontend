@@ -2,7 +2,7 @@ import { Box, Container, makeStyles, Typography } from '@material-ui/core'
 
 const useStyles = makeStyles({
   title: {
-    color: '#999999'
+    color: '#999'
   }
 })
 

@@ -12,7 +12,7 @@ import { Menu } from './Menu'
 
 const useStyles = makeStyles((theme: Theme) => ({
   toolbar: {
-    backgroundColor: '#000000'
+    backgroundColor: '#000'
   },
   title: {
     flexGrow: 1,
