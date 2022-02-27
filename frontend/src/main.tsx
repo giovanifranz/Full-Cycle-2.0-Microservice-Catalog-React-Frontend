@@ -1,15 +1,15 @@
-import React from 'react'
 import ReactDOM from 'react-dom'
-import { createTheme, ThemeProvider } from '@mui/material/styles'
-
-const theme = createTheme()
+import { CssBaseline, MuiThemeProvider } from '@material-ui/core'
+import theme from './theme'
 import App from '@/App'
+import { StrictMode } from 'react'
 
 ReactDOM.render(
-  <React.StrictMode>
-    <ThemeProvider theme={theme}>
+  <StrictMode>
+    <MuiThemeProvider theme={theme}>
+      <CssBaseline />
       <App />
-    </ThemeProvider>
-  </React.StrictMode>,
+    </MuiThemeProvider>
+  </StrictMode>,
   document.getElementById('root')
 )

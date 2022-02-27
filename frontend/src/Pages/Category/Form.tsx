@@ -1,21 +1,32 @@
 import categoryHttp from '@/utils/http/category-http'
 import {
   Box,
-  Button as MuiButton,
+  Button,
   ButtonProps,
   Checkbox,
-  TextField
+  makeStyles,
+  TextField,
+  Theme
 } from '@material-ui/core'
-import { styled } from '@mui/system'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-const Button = styled(MuiButton)(({ theme }) => ({
-  margin: theme.spacing(1)
-}))
+const useStyles = makeStyles((theme: Theme) => {
+  return {
+    submit: {
+      margin: theme.spacing(1)
+    }
+  }
+})
 
 export const Form = () => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const classes = useStyles()
   const buttonProps: ButtonProps = {
-    variant: 'outlined'
+    variant: 'contained',
+    className: classes.submit,
+    color: 'secondary',
+    disabled: loading
   }
 
   const { register, handleSubmit, getValues } = useForm({
