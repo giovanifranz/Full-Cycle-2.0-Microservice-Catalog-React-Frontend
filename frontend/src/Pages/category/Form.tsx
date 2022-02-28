@@ -15,6 +15,7 @@ import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useSnackbar } from 'notistack'
+import { Category } from '@/utils/Models'
 
 interface IFormInputs {
   name: string
@@ -35,15 +36,6 @@ const validationSchema = yup.object().shape({
 })
 
 export const Form = () => {
-  const [loading, setLoading] = useState<boolean>(false)
-  const classes = useStyles()
-  const buttonProps: ButtonProps = {
-    variant: 'contained',
-    className: classes.submit,
-    color: 'secondary',
-    disabled: loading
-  }
-
   const {
     register,
     handleSubmit,
@@ -58,11 +50,19 @@ export const Form = () => {
       is_active: true
     }
   })
+  const [loading, setLoading] = useState<boolean>(false)
+  const classes = useStyles()
+  const buttonProps: ButtonProps = {
+    variant: 'contained',
+    className: classes.submit,
+    color: 'secondary',
+    disabled: loading
+  }
 
   const { id } = useParams()
   const snackbar = useSnackbar()
   const navigate = useNavigate()
-  const [category, setCategory] = useState<{ id: string } | null>(null)
+  const [category, setCategory] = useState<Category | null>(null)
 
   useEffect(() => {
     if (!id) {

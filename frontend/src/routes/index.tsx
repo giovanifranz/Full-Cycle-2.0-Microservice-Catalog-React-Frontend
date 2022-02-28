@@ -50,6 +50,12 @@ export const routes: MyRouteProps[] = [
     element: <CastMemberForm />
   },
   {
+    name: 'member.list.edit',
+    label: 'Editar membro de elenco',
+    path: '/members/:id/edit',
+    element: <CastMemberForm />
+  },
+  {
     name: 'genrer.list',
     label: 'Listar Gêneros',
     path: '/genres',
@@ -59,6 +65,12 @@ export const routes: MyRouteProps[] = [
     name: 'genrer.create',
     label: 'Criar gêneros',
     path: '/genres/create',
+    element: <GenreForm />
+  },
+  {
+    name: 'genrer.edit',
+    label: 'Editar gêneros',
+    path: '/genres/:id/edit',
     element: <GenreForm />
   }
 ]
