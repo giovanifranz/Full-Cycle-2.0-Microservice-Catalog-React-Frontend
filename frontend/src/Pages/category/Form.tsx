@@ -13,7 +13,8 @@ import * as yup from '@/utils/vendor/yup'
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
+import { useSnackbar } from 'notistack'
 
 interface IFormInputs {
   name: string
@@ -59,27 +60,58 @@ export const Form = () => {
   })
 
   const { id } = useParams()
+  const snackbar = useSnackbar()
+  const navigate = useNavigate()
   const [category, setCategory] = useState<{ id: string } | null>(null)
 
   useEffect(() => {
     if (!id) {
       return
     }
+    async function getCategory() {
+      setLoading(true)
+      try {
+        const { data } = await categoryHttp.get(id)
+        setCategory(data.data)
+        reset(data.data)
+      } catch (error) {
+        console.log(error)
+        snackbar.enqueueSnackbar('Não foi possível carregar as informações', {
+          variant: 'error'
+        })
+      } finally {
+        setLoading(false)
+      }
+    }
 
-    categoryHttp.get(id).then(({ data }) => {
-      setCategory(data.data)
-      reset(data.data)
-    })
+    getCategory()
   }, [])
 
-  function onSubmit(formData: any, event: any) {
-    const http = !category
-      ? categoryHttp.create(formData)
-      : categoryHttp.update(category.id, formData)
-    http.then((response) => {
-      console.log(response)
-    })
-    console.log(event)
+  async function onSubmit(formData: any, event: any) {
+    setLoading(true)
+    try {
+      const http = !category
+        ? categoryHttp.create(formData)
+        : categoryHttp.update(category.id, formData)
+      const { data } = await http
+      snackbar.enqueueSnackbar('Categoria salva com sucesso', {
+        variant: 'success'
+      })
+      setTimeout(() => {
+        event
+          ? id
+            ? navigate(`/categories/${data.data.id}/edit`, { replace: true })
+            : navigate(`/categories/${data.data.id}/edit`)
+          : navigate('/categories')
+      })
+    } catch (error) {
+      console.error(error)
+      snackbar.enqueueSnackbar('Não foi possível salvar a categoria', {
+        variant: 'error'
+      })
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
