@@ -1,4 +1,4 @@
-import { RouteProps } from 'react-router'
+import { RouteProps } from 'react-router-dom'
 import Dashboard from '@/Pages/Dashboard'
 import CastMember from '@/Pages/cast-member/PageList'
 import CastMemberForm from '@/Pages/cast-member/PageForm'
@@ -29,6 +29,12 @@ export const routes: MyRouteProps[] = [
     name: 'category.create',
     label: 'Criar Categoria',
     path: '/categories/create',
+    element: <CategoryForm />
+  },
+  {
+    name: 'category.edit',
+    label: 'Editar Categoria',
+    path: '/categories/:id/edit',
     element: <CategoryForm />
   },
   {

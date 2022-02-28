@@ -4,12 +4,22 @@ import {
   Button,
   ButtonProps,
   Checkbox,
+  FormControlLabel,
   makeStyles,
   TextField,
   Theme
 } from '@material-ui/core'
-import { useState } from 'react'
+import * as yup from '@/utils/vendor/yup'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import { useParams } from 'react-router-dom'
+
+interface IFormInputs {
+  name: string
+  description: string
+  is_active: boolean
+}
 
 const useStyles = makeStyles((theme: Theme) => {
   return {
@@ -17,6 +27,10 @@ const useStyles = makeStyles((theme: Theme) => {
       margin: theme.spacing(1)
     }
   }
+})
+
+const validationSchema = yup.object().shape({
+  name: yup.string().label('Nome').required().max(255)
 })
 
 export const Form = () => {
@@ -29,19 +43,43 @@ export const Form = () => {
     disabled: loading
   }
 
-  const { register, handleSubmit, getValues } = useForm({
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    watch,
+    setValue,
+    formState: { errors }
+  } = useForm<IFormInputs>({
+    resolver: yupResolver(validationSchema),
     defaultValues: {
-      name: '',
-      description: '',
       is_active: true
     }
   })
 
+  const { id } = useParams()
+  const [category, setCategory] = useState<{ id: string } | null>(null)
+
+  useEffect(() => {
+    if (!id) {
+      return
+    }
+
+    categoryHttp.get(id).then(({ data }) => {
+      setCategory(data.data)
+      reset(data.data)
+    })
+  }, [])
+
   function onSubmit(formData: any, event: any) {
-    console.log(event)
-    categoryHttp.create(formData).then((response) => {
+    const http = !category
+      ? categoryHttp.create(formData)
+      : categoryHttp.update(category.id, formData)
+    http.then((response) => {
       console.log(response)
     })
+    console.log(event)
   }
 
   return (
@@ -51,6 +89,9 @@ export const Form = () => {
         fullWidth
         variant="outlined"
         {...register('name')}
+        error={errors.name !== undefined}
+        helperText={errors.name && errors.name.message}
+        InputLabelProps={{ shrink: true }}
       />
       <TextField
         label="Descrição"
@@ -60,9 +101,20 @@ export const Form = () => {
         variant="outlined"
         margin="normal"
         {...register('description')}
+        InputLabelProps={{ shrink: true }}
       />
-      <Checkbox {...register('is_active')} color="primary" defaultChecked />
-      Ativo?
+      <FormControlLabel
+        control={
+          <Checkbox
+            {...register('is_active')}
+            color="primary"
+            checked={watch('is_active')}
+            onChange={() => setValue('is_active', !getValues()['is_active'])}
+          />
+        }
+        label="Ativo?"
+        labelPlacement="end"
+      />
       <Box dir="rtl">
         <Button {...buttonProps} onClick={() => onSubmit(getValues, null)}>
           Salvar

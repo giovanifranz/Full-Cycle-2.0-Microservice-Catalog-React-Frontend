@@ -32,7 +32,13 @@ export const Form = () => {
     disabled: loading
   }
 
-  const { register, handleSubmit, getValues, setValue } = useForm({
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    setValue,
+    formState: { errors }
+  } = useForm({
     defaultValues: {
       name: '',
       type: 1
